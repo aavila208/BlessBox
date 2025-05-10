@@ -1,14 +1,23 @@
 import express from 'express';
 import authMiddleware from '../middleware/auth.js';
+import isAdmin from '../middleware/isAdmin.js'; // UPDATE: Importing isAdmin middleware
 import { listOrders, placeOrder,updateStatus,userOrders, verifyOrder, placeOrderCod } from '../controllers/orderController.js';
 
 const orderRouter = express.Router();
 
-orderRouter.get("/list",listOrders);
+// Adming-only routes
+orderRouter.get("/list", authMiddleware, isAdmin, listOrders); // UPDATE: List all orders
+
+// Regular user routes
 orderRouter.post("/userorders",authMiddleware,userOrders);
 orderRouter.post("/place",authMiddleware,placeOrder);
-orderRouter.post("/status",updateStatus);
-orderRouter.post("/verify",verifyOrder);
 orderRouter.post("/placecod",authMiddleware,placeOrderCod);
+
+// Admin-only routes
+orderRouter.post("/status",authMiddleware, isAdmin, updateStatus); // UPDATE: Update order status   
+
+// Public route (payment verification)
+orderRouter.post("/verify",verifyOrder);
+
 
 export default orderRouter;

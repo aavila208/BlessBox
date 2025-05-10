@@ -36,6 +36,11 @@ const LoginPopup = ({ setShowLogin }) => {
         if (response.data.success) {
             setToken(response.data.token)
             localStorage.setItem("token", response.data.token)
+            // UPDATE: Store User's Role to use for conditional rendering
+            if (response.data.role) {
+                localStorage.setItem("role", response.data.role);
+            }
+            //-----
             loadCartData({token:response.data.token})
             setShowLogin(false)
         }
