@@ -11,6 +11,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Verify from './pages/Verify/Verify'
 
+// UPDATE: Admin Panel import (Subject to Change based on Naming Convention) (1)
+// import AdminRoute from './components/AdminRoute'; 
+// import AdminApp from '.admin/src'; // Assuming the path is correct
+
 const App = () => {
 
   const [showLogin,setShowLogin] = useState(false);
@@ -27,6 +31,15 @@ const App = () => {
           <Route path='/order' element={<PlaceOrder />}/>
           <Route path='/myorders' element={<MyOrders />}/>
           <Route path='/verify' element={<Verify />}/>
+          {/* UPDATE: admin-panel route (2) */}
+          {/* <Route
+            path="/admin-panel/*"
+            element={
+              <AdminRoute>
+                <AdminApp />
+              </AdminRoute>
+            }
+          /> */}
         </Routes>
       </div>
       <Footer />
