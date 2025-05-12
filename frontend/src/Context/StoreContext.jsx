@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { food_list, menu_list } from "../assets/assets";
+import { menu_list } from "../assets/assets";
 import axios from "axios";
 export const StoreContext = createContext(null);
 
@@ -11,7 +11,7 @@ const StoreContextProvider = (props) => {
     const [token, setToken] = useState("")
     const currency = "$";
     const deliveryCharge = 5;
-
+      
     const addToCart = async (itemId) => {
         if (!cartItems[itemId]) {
             setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
@@ -52,21 +52,34 @@ const StoreContextProvider = (props) => {
         setFoodList(response.data.data)
     }
 
-    const loadCartData = async (token) => {
-        const response = await axios.post(url + "/api/cart/get", {}, { headers: token });
-        setCartItems(response.data.cartData);
-    }
+    const loadCartData = async ({ token }) => {
+        try {
+            const response = await axios.post(
+                url + "/api/cart/get", 
+                {}, // <-- Empty body (no userId needed)
+                { headers: { token } }
+            );
+            setCartItems(response.data.cartData || {});
+        } catch (error) {
+            console.error("Error loading cart data:", error);
+            setCartItems({}); 
+        }
+    };
 
     useEffect(() => {
         async function loadData() {
             await fetchFoodList();
-            if (localStorage.getItem("token")) {
-                setToken(localStorage.getItem("token"))
-                await loadCartData({ token: localStorage.getItem("token") })
+            const token = localStorage.getItem("token");
+            if (token) {
+                setToken(token);
+                await loadCartData({ token }); // Only call if token exists
+            } else {
+                setCartItems({}); // No token? Set cart to empty object
             }
         }
-        loadData()
-    }, [])
+        loadData();
+    }, []);
+    
 
     const contextValue = {
         url,

@@ -3,7 +3,7 @@ import userModel from "../models/userModel.js"
 // add to user cart  
 const addToCart = async (req, res) => {
    try {
-      let userData = await userModel.findOne({_id:req.body.userId});
+      let userData = await userModel.findById(req.user.id);
       // UPDATE: Check if userData is null
       if (!userData) {
          return res.status(404).json({ success: false, message: "User not found" });
@@ -27,7 +27,7 @@ const addToCart = async (req, res) => {
 // remove food from user cart
 const removeFromCart = async (req, res) => {
    try {
-      let userData = await userModel.findById(req.body.userId);
+      let userData = await userModel.findById(req.user.id);
       // UPDATE: Check if userData is null
       if (!userData) {
          return res.status(404).json({ success: false, message: "User not found" });
@@ -49,14 +49,12 @@ const removeFromCart = async (req, res) => {
 // get user cart
 const getCart = async (req, res) => {
    try {
-      let userData = await userModel.findById(req.body.userId);
-      // UPDATE: Check if userData is null
+      let userData = await userModel.findById(req.user.id); // <-- Changed to req.user.id
       if (!userData) {
          return res.status(404).json({ success: false, message: "User not found" });
       }
-      //-----
-      let cartData = await userData.cartData;
-      res.json({ success: true, cartData:cartData });
+      let cartData = userData.cartData;
+      res.json({ success: true, cartData: cartData });
    } catch (error) {
       console.log(error);
       res.json({ success: false, message: "Error" })

@@ -12,8 +12,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import Verify from './pages/Verify/Verify'
 
 // UPDATE: Admin Panel import (Subject to Change based on Naming Convention) (1)
-// import AdminRoute from './components/AdminRoute'; 
+// import AdminRoute from './components/AdminRoute/AdminRoute';
 // import AdminApp from '.admin/src'; // Assuming the path is correct
+import AdminRoute from './components/AdminRoute/AdminRoute'; 
+import AdminPanel from './components/AdminPanel/AdminApp'; 
 
 const App = () => {
 
@@ -32,14 +34,12 @@ const App = () => {
           <Route path='/myorders' element={<MyOrders />}/>
           <Route path='/verify' element={<Verify />}/>
           {/* UPDATE: admin-panel route (2) */}
-          {/* <Route
-            path="/admin-panel/*"
-            element={
-              <AdminRoute>
-                <AdminApp />
-              </AdminRoute>
-            }
-          /> */}
+          <Route path='/admin' element={
+            <AdminRoute>
+              <AdminPanel />
+            </AdminRoute>
+          }/>
+      
         </Routes>
       </div>
       <Footer />
