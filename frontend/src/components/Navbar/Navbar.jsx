@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './Navbar.css'
-import { assets } from '../../assets/assets'
+import { assets } from "../../assets/assets";
 import { Link, useNavigate } from 'react-router-dom'
 import { StoreContext } from '../../Context/StoreContext'
 
@@ -26,7 +26,7 @@ const Navbar = ({ setShowLogin }) => {
         <a href='#explore-menu' onClick={() => setMenu("menu")} className={`${menu === "menu" ? "active" : ""}`}>menu</a>
         <a href='#app-download' onClick={() => setMenu("mob-app")} className={`${menu === "mob-app" ? "active" : ""}`}>mobile app</a>
         <a href='#footer' onClick={() => setMenu("contact")} className={`${menu === "contact" ? "active" : ""}`}>contact us</a>
-        {/* UPDATE: Conditionally Render the Admin Panel Link */}
+        {/* UPDATE: Conditionally Render the Admin Panel Link [1]*/}
         {role === "admin" && (
           <Link
             to="/admin-panel"

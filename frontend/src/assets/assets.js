@@ -352,3 +352,7 @@ export const food_list = [
         category: "Noodles"
     }
 ]
+
+export const url = 'http://localhost:4000';
+export const currency = '$';
+
