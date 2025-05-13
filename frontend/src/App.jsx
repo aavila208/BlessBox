@@ -34,7 +34,7 @@ const App = () => {
           <Route path='/myorders' element={<MyOrders />}/>
           <Route path='/verify' element={<Verify />}/>
           {/* UPDATE: admin-panel route (2) */}
-          <Route path='/admin' element={
+          <Route path='/admin-panel' element={
             <AdminRoute>
               <AdminPanel />
             </AdminRoute>
