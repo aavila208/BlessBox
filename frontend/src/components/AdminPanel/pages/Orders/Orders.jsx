@@ -8,8 +8,21 @@ const Order = () => {
 
   const [orders, setOrders] = useState([]);
 
+  // const fetchAllOrders = async () => {
+  //   const response = await axios.get(`${url}/api/order/list`)
+  //   if (response.data.success) {
+  //     setOrders(response.data.data.reverse());
+  //   }
+  //   else {
+  //     toast.error("Error")
+  //   }
+  // }
+
   const fetchAllOrders = async () => {
-    const response = await axios.get(`${url}/api/order/list`)
+    const token = localStorage.getItem('token');
+    const response = await axios.get(`${url}/api/order/list`, {
+      headers: { token }
+    });
     if (response.data.success) {
       setOrders(response.data.data.reverse());
     }
@@ -17,6 +30,7 @@ const Order = () => {
       toast.error("Error")
     }
   }
+  
 
   const statusHandler = async (event, orderId) => {
     console.log(event, orderId);
