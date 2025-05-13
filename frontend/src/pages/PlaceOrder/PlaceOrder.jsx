@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const PlaceOrder = () => {
+    
 
     const [payment, setPayment] = useState("cod")
     const [data, setData] = useState({
@@ -22,6 +23,16 @@ const PlaceOrder = () => {
     })
 
     const { getTotalCartAmount, token, food_list, cartItems, url, setCartItems,currency,deliveryCharge } = useContext(StoreContext);
+    console.log("PlaceOrder token:", token);
+    console.log("PlaceOrder cartItems:", cartItems);
+    console.log("PlaceOrder total:", getTotalCartAmount());
+    console.log("PlaceOrder food_list:", food_list);
+    console.log("PlaceOrder food_list full:", JSON.stringify(food_list, null, 2));
+console.log("PlaceOrder cartItems full:", JSON.stringify(cartItems, null, 2));
+
+    if (!food_list || food_list.length === 0) {
+        return <div>Loading...</div>;
+      }
 
     const navigate = useNavigate();
 

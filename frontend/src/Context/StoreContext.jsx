@@ -7,11 +7,25 @@ const StoreContextProvider = (props) => {
 
     const url = "http://localhost:4000"
     const [food_list, setFoodList] = useState([]);
-    const [cartItems, setCartItems] = useState({});
-    const [token, setToken] = useState("")
+
+    // UPDATE::
+    const [cartItems, setCartItems] = useState(() => {
+        const stored = localStorage.getItem('cartItems');
+        return stored ? JSON.parse(stored) : {};
+      });
+
+
+    // const [token, setToken] = useState("")
+    const [token, setToken] = useState(() => localStorage.getItem("token") || "");
+
     const currency = "$";
     const deliveryCharge = 5;
       
+    // UPDATE:
+    useEffect(() => {
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      }, [cartItems]);
+
     const addToCart = async (itemId) => {
         if (!cartItems[itemId]) {
             setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
@@ -34,18 +48,20 @@ const StoreContextProvider = (props) => {
     const getTotalCartAmount = () => {
         let totalAmount = 0;
         for (const item in cartItems) {
-            try {
-              if (cartItems[item] > 0) {
-                let itemInfo = food_list.find((product) => product._id === item);
+          try {
+            if (cartItems[item] > 0) {
+              // Compare IDs as strings to avoid mismatch
+              let itemInfo = food_list.find((product) => String(product._id) === String(item));
+              if (itemInfo) {
                 totalAmount += itemInfo.price * cartItems[item];
-            }  
-            } catch (error) {
-                
+              }
             }
-            
+          } catch (error) {
+            // handle error if needed
+          }
         }
         return totalAmount;
-    }
+      };
 
     const fetchFoodList = async () => {
         const response = await axios.get(url + "/api/food/list");
@@ -70,12 +86,12 @@ const StoreContextProvider = (props) => {
         async function loadData() {
             await fetchFoodList();
             const token = localStorage.getItem("token");
-            if (token) {
-                setToken(token);
-                await loadCartData({ token }); // Only call if token exists
-            } else {
-                setCartItems({}); // No token? Set cart to empty object
-            }
+            // if (token) {
+            //     setToken(token);
+            //     await loadCartData({ token }); // Only call if token exists ********** Change if error
+            // } else {
+            //     setCartItems({}); // No token? Set cart to empty object
+            // }
         }
         loadData();
     }, []);
