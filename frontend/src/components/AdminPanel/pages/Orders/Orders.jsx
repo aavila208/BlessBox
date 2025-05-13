@@ -19,18 +19,17 @@ const Order = () => {
   // }
 
   const fetchAllOrders = async () => {
-    const token = localStorage.getItem('token');
-    const response = await axios.get(`${url}/api/order/list`, {
-      headers: { token }
-    });
-    if (response.data.success) {
-      setOrders(response.data.data.reverse());
-    }
-    else {
-      toast.error("Error")
-    }
+  const token = localStorage.getItem('token');
+  const response = await axios.get(`${url}/api/order/list`, {
+    headers: { token }
+  });
+  if (response.data.success) {
+    setOrders(response.data.data.reverse());
   }
-  
+  else {
+    toast.error("Error")
+  }
+}
 
   const statusHandler = async (event, orderId) => {
     console.log(event, orderId);
