@@ -31,17 +31,29 @@ const Order = () => {
   }
 }
 
+  // const statusHandler = async (event, orderId) => {
+  //   console.log(event, orderId);
+  //   const response = await axios.post(`${url}/api/order/status`, {
+  //     orderId,
+  //     status: event.target.value
+  //   })
+  //   if (response.data.success) {
+  //     await fetchAllOrders();
+  //   }
+  // }
   const statusHandler = async (event, orderId) => {
-    console.log(event, orderId);
-    const response = await axios.post(`${url}/api/order/status`, {
-      orderId,
-      status: event.target.value
-    })
+    const token = localStorage.getItem('token');
+    const response = await axios.post(
+      `${url}/api/order/status`,
+      { orderId, status: event.target.value },
+      { headers: { token } }
+    );
     if (response.data.success) {
       await fetchAllOrders();
+    } else {
+      toast.error("Failed to update status");
     }
   }
-
 
   useEffect(() => {
     fetchAllOrders();
