@@ -22,7 +22,6 @@ const addFood = async (req, res) => {
         const food = new foodModel({
             name: req.body.name,
             description: req.body.description,
-            price: req.body.price,
             category:req.body.category,
             image: image_filename,
         })
@@ -37,18 +36,19 @@ const addFood = async (req, res) => {
 
 // delete food
 const removeFood = async (req, res) => {
+    console.log('removeFood endpoint HIT!', req.body);
     try {
-
-        const food = await foodModel.findById(req.user.id);
+        console.log('removeFood called with req.body:', req.body);
+        const food = await foodModel.findById(req.body.id);
         fs.unlink(`uploads/${food.image}`, () => { })
 
-        await foodModel.findByIdAndDelete(req.user.id)
+        await foodModel.findByIdAndDelete(req.body.id)
         res.json({ success: true, message: "Food Removed" })
 
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: "Error" })
-    }
+        console.error('Error in removeFood:', error.stack || error);
+        res.json({ success: false, message: error.message || "Error" });
+    }    
 
 }
 

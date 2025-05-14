@@ -18,8 +18,6 @@ const StoreContextProvider = (props) => {
     // const [token, setToken] = useState("")
     const [token, setToken] = useState(() => localStorage.getItem("token") || "");
 
-    const currency = "$";
-    const deliveryCharge = 5;
       
     // UPDATE:
     useEffect(() => {
@@ -45,24 +43,6 @@ const StoreContextProvider = (props) => {
         }
     }
 
-    const getTotalCartAmount = () => {
-        let totalAmount = 0;
-        for (const item in cartItems) {
-          try {
-            if (cartItems[item] > 0) {
-              // Compare IDs as strings to avoid mismatch
-              let itemInfo = food_list.find((product) => String(product._id) === String(item));
-              if (itemInfo) {
-                totalAmount += itemInfo.price * cartItems[item];
-              }
-            }
-          } catch (error) {
-            // handle error if needed
-          }
-        }
-        return totalAmount;
-      };
-
     const fetchFoodList = async () => {
         const response = await axios.get(url + "/api/food/list");
         setFoodList(response.data.data)
@@ -86,6 +66,7 @@ const StoreContextProvider = (props) => {
         async function loadData() {
             await fetchFoodList();
             const token = localStorage.getItem("token");
+            
             // if (token) {
             //     setToken(token);
             //     await loadCartData({ token }); // Only call if token exists ********** Change if error
@@ -104,13 +85,10 @@ const StoreContextProvider = (props) => {
         cartItems,
         addToCart,
         removeFromCart,
-        getTotalCartAmount,
         token,
         setToken,
         loadCartData,
-        setCartItems,
-        currency,
-        deliveryCharge
+        setCartItems
     };
 
     return (
