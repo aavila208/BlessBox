@@ -20,21 +20,16 @@ const PlaceOrder = () => {
         phone: ""
     })
 
-    const { getTotalCartAmount, token, food_list, cartItems, url, setCartItems,currency,deliveryCharge } = useContext(StoreContext);
+    const {token, food_list, cartItems, url, setCartItems,deliveryCharge } = useContext(StoreContext);
 
     
     const navigate = useNavigate();
 
     console.log("PlaceOrder token:", token);
     console.log("PlaceOrder cartItems:", cartItems);
-    console.log("PlaceOrder total:", getTotalCartAmount());
     console.log("PlaceOrder food_list:", food_list);
     console.log("PlaceOrder food_list full:", JSON.stringify(food_list, null, 2));
     console.log("PlaceOrder cartItems full:", JSON.stringify(cartItems, null, 2));
-
-    if (!food_list || food_list.length === 0) {
-        return <div>Loading...</div>;
-      }
 
     const onChangeHandler = (event) => {
         const name = event.target.name
@@ -55,7 +50,6 @@ const PlaceOrder = () => {
         let orderData = {
             address: data,
             items: orderItems,
-            amount: getTotalCartAmount() + deliveryCharge,
         }
         if (payment === "stripe") {
             let response = await axios.post(url + "/api/order/place", orderData, { headers: { token } });
@@ -82,14 +76,24 @@ const PlaceOrder = () => {
     }
 
     useEffect(() => {
+        // Check if user is logged in
         if (!token) {
-            toast.error("to place an order sign in first")
-            navigate('/cart')
+            toast.error("To place an order, sign in first");
+            navigate('/cart');
         }
-        else if (getTotalCartAmount() === 0) {
-            navigate('/cart')
+        // Check if cart is empty
+        else if (
+            !cartItems ||
+            Object.values(cartItems).reduce((sum, qty) => sum + qty, 0) === 0
+        ) {
+            toast.error("Your cart is empty");
+            navigate('/cart');
         }
-    }, [token])
+    }, [token, cartItems, navigate]);
+
+    if (!food_list || food_list.length === 0) {
+        return <div>Loading...</div>;
+      }
 
     return (
         <form onSubmit={placeOrder} className='place-order'>
@@ -112,16 +116,6 @@ const PlaceOrder = () => {
                 <input type="text" name='phone' onChange={onChangeHandler} value={data.phone} placeholder='Phone' required />
             </div>
             <div className="place-order-right">
-                <div className="cart-total">
-                    <h2>Cart Totals</h2>
-                    <div>
-                        <div className="cart-total-details"><p>Subtotal</p><p>{currency}{getTotalCartAmount()}</p></div>
-                        <hr />
-                        <div className="cart-total-details"><p>Delivery Fee</p><p>{currency}{getTotalCartAmount() === 0 ? 0 : deliveryCharge}</p></div>
-                        <hr />
-                        <div className="cart-total-details"><b>Total</b><b>{currency}{getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + deliveryCharge}</b></div>
-                    </div>
-                </div>
                 <div className="payment">
                     <h2>Payment Method</h2>
                     <div onClick={() => setPayment("cod")} className="payment-option">

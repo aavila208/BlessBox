@@ -64,14 +64,14 @@ const Add = () => {
         const token = localStorage.getItem('token'); // <-- get the token
     
         const response = await axios.post(
-          `${url}/api/food/add`,
-          formData,
-          {
-            headers: {
-              token: token // <-- send it in the headers
+            `${url}/api/food/add`,
+            formData,
+            {
+              headers: {
+                token: token // <-- Token must be inside headers!
+              }
             }
-          }
-        );
+          );
     
         if (response.data.success) {
             toast.success(response.data.message)

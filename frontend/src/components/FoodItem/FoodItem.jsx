@@ -4,10 +4,10 @@ import './FoodItem.css'
 
 import { StoreContext } from '../../Context/StoreContext';
 
-const FoodItem = ({ image, name, price, desc , id }) => {
+const FoodItem = ({ image, name, desc, id }) => {
 
     const [itemCount, setItemCount] = useState(0);
-    const {cartItems,addToCart,removeFromCart,url,currency} = useContext(StoreContext);
+    const {cartItems,addToCart,removeFromCart,url} = useContext(StoreContext);
 
     return (
         <div className='food-item'>
@@ -27,7 +27,6 @@ const FoodItem = ({ image, name, price, desc , id }) => {
                     <p>{name}</p> <img src={assets.rating_starts} alt="" />
                 </div>
                 <p className="food-item-desc">{desc}</p>
-                <p className="food-item-price">{currency}{price}</p>
             </div>
         </div>
     )
