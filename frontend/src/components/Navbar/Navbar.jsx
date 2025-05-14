@@ -7,14 +7,16 @@ import { StoreContext } from '../../Context/StoreContext'
 const Navbar = ({ setShowLogin }) => {
 
   const [menu, setMenu] = useState("home");
-  const { getTotalCartAmount, token ,setToken } = useContext(StoreContext);
+  const { getTotalCartAmount, token ,setToken, setCartItems } = useContext(StoreContext);
   const navigate = useNavigate();
   const role = localStorage.getItem("role"); // UPDATE: Get User's Role from localStorage
 
   const logout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("role"); // UPDATE: Remove User's Role from localStorage  
+    localStorage.removeItem("role"); // UPDATE: Remove User's Role from localStorage 
+    localStorage.removeItem("cartItems"); // UPDATE: <-- Clear cart from localStorage
     setToken("");
+    setCartItems({}); // UPDATEL <-- Clear cart from context/state
     navigate('/')
   }
 
