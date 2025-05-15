@@ -1,141 +1,84 @@
-import React, { useState } from 'react'
-import './Add.css'
-import { assets, url } from '../../../../assets/assets';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import '../Orders/Orders.css';
 import { toast } from 'react-toastify';
+import api from '../../../../api.js';
+import { assets } from '../../../../assets/assets';
 
+const Order = () => {
+  const [orders, setOrders] = useState([]);
 
-const Add = () => {
-
-
-    const [image, setImage] = useState(false);
-    const [data, setData] = useState({
-        name: "",
-        description: "",
-        price: "",
-        category: "Salad"
-    });
-
-    // const onSubmitHandler = async (event) => {
-    //     event.preventDefault();
-
-    //     if (!image) {
-    //         toast.error('Image not selected');
-    //         return null;
-    //     }
-
-    //     const formData = new FormData();
-    //     formData.append("name", data.name);
-    //     formData.append("description", data.description);
-    //     formData.append("price", Number(data.price));
-    //     formData.append("category", data.category);
-    //     formData.append("image", image);
-    //     const response = await axios.post(`${url}/api/food/add`, formData);
-    //     if (response.data.success) {
-    //         toast.success(response.data.message)
-    //         setData({
-    //             name: "",
-    //             description: "",
-    //             price: "",
-    //             category: data.category
-    //         })
-    //         setImage(false);
-    //     }
-    //     else {
-    //         toast.error(response.data.message)
-    //     }
-    // }
-
-    const onSubmitHandler = async (event) => {
-        event.preventDefault();
-    
-        if (!image) {
-            toast.error('Image not selected');
-            return null;
-        }
-    
-        const formData = new FormData();
-        formData.append("name", data.name);
-        formData.append("description", data.description);
-        formData.append("price", Number(data.price));
-        formData.append("category", data.category);
-        formData.append("image", image);
-    
-        const token = localStorage.getItem('token'); // <-- get the token
-    
-        const response = await axios.post(
-            `${url}/api/food/add`,
-            formData,
-            {
-              headers: {
-                token: token // <-- Token must be inside headers!
-              }
-            }
-          );
-    
-        if (response.data.success) {
-            toast.success(response.data.message)
-            setData({
-                name: "",
-                description: "",
-                price: "",
-                category: data.category
-            })
-            setImage(false);
-        }
-        else {
-            toast.error(response.data.message)
-        }
+  const fetchAllOrders = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await api.get('/api/order/list', {
+        headers: { token }
+      });
+      if (response.data.success) {
+        setOrders(response.data.data.reverse());
+      } else {
+        toast.error("Error");
+      }
+    } catch (error) {
+      toast.error("Network error");
     }
-    
+  };
 
-    const onChangeHandler = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setData(data => ({ ...data, [name]: value }))
+  const statusHandler = async (event, orderId) => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await api.post(
+        '/api/order/status',
+        { orderId, status: event.target.value },
+        { headers: { token } }
+      );
+      if (response.data.success) {
+        await fetchAllOrders();
+      } else {
+        toast.error("Failed to update status");
+      }
+    } catch (error) {
+      toast.error("Network error");
     }
+  };
 
-    return (
-        <div className='add'>
-            <form className='flex-col' onSubmit={onSubmitHandler}>
-                <div className='add-img-upload flex-col'>
-                    <p>Upload image</p>
-                    <input onChange={(e) => { setImage(e.target.files[0]); e.target.value = '' }} type="file" accept="image/*" id="image" hidden />
-                    <label htmlFor="image">
-                        <img src={!image ? assets.upload_area : URL.createObjectURL(image)} alt="" />
-                    </label>
-                </div>
-                <div className='add-product-name flex-col'>
-                    <p>Product name</p>
-                    <input name='name' onChange={onChangeHandler} value={data.name} type="text" placeholder='Type here' required />
-                </div>
-                <div className='add-product-description flex-col'>
-                    <p>Product description</p>
-                    <textarea name='description' onChange={onChangeHandler} value={data.description} type="text" rows={6} placeholder='Write content here' required />
-                </div>
-                <div className='add-category-price'>
-                    <div className='add-category flex-col'>
-                        <p>Product category</p>
-                        <select name='category' onChange={onChangeHandler} >
-                            <option value="Salad">Salad</option>
-                            <option value="Rolls">Rolls</option>
-                            <option value="Deserts">Deserts</option>
-                            <option value="Sandwich">Sandwich</option>
-                            <option value="Cake">Cake</option>
-                            <option value="Pure Veg">Pure Veg</option>
-                            <option value="Pasta">Pasta</option>
-                            <option value="Noodles">Noodles</option>
-                        </select>
-                    </div>
-                    <div className='add-price flex-col'>
-                        <p>Product Price</p>
-                        <input type="Number" name='price' onChange={onChangeHandler} value={data.price} placeholder='25' />
-                    </div>
-                </div>
-                <button type='submit' className='add-btn' >ADD</button>
-            </form>
-        </div>
-    )
+  useEffect(() => {
+    fetchAllOrders();
+    // eslint-disable-next-line
+  }, []);
+
+  return (
+    <div className='order add'>
+      <h3>Order Page</h3>
+      <div className="order-list">
+        {orders.map((order, index) => (
+          <div key={index} className='order-item'>
+            <img src={assets.parcel_icon} alt="" />
+            <div>
+              <p className='order-item-food'>
+                {order.items.map((item, idx) => (
+                  idx === order.items.length - 1
+                    ? `${item.name} x ${item.quantity}`
+                    : `${item.name} x ${item.quantity}, `
+                ))}
+              </p>
+              <p className='order-item-name'>{order.address.firstName + " " + order.address.lastName}</p>
+              <div className='order-item-address'>
+                <p>{order.address.street + ","}</p>
+                <p>{order.address.city + ", " + order.address.state + ", " + order.address.country + ", " + order.address.zipcode}</p>
+              </div>
+              <p className='order-item-phone'>{order.address.phone}</p>
+            </div>
+            <p>Items : {order.items.length}</p>
+            <select onChange={(e) => statusHandler(e, order._id)} value={order.status}>
+              <option value="Food Processing">Food Processing</option>
+              <option value="Out for delivery">Out for delivery</option>
+              <option value="Delivered">Delivered</option>
+            </select>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
 
-export default Add
+export default Order
