@@ -10,12 +10,7 @@ import adminRouter from "./routes/adminRoute.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// Needed for __dirname in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const app = express();
-const port = process.env.PORT || 4000;
 
 // --- CORS MIDDLEWARE (put this BEFORE routes!) ---
 app.use(cors({
@@ -26,6 +21,11 @@ app.use(cors({
   credentials: true
 }));
 
+// Needed for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const port = process.env.PORT || 4000;
 
 // --- OTHER MIDDLEWARE ---
 app.use(express.json());
