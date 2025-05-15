@@ -72,9 +72,13 @@ const port = process.env.PORT || 4000;
 
 // --- CORS MIDDLEWARE (put this BEFORE routes!) ---
 app.use(cors({
-  origin: 'http://localhost:5173', // Your React dev server
+  origin: [
+    'https://blessbox.onrender.com', // <-- your deployed frontend
+    'http://localhost:5173'             // <-- keep for local dev
+  ],
   credentials: true
 }));
+
 
 // --- OTHER MIDDLEWARE ---
 app.use(express.json());
