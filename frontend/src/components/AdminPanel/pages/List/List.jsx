@@ -1,53 +1,43 @@
 import React, { useEffect, useState } from 'react'
 import './List.css'
-import { url} from '../../../../assets/assets';
-import axios from 'axios';
+import api from '../../../../api.js';
 import { toast } from 'react-toastify';
 
 const List = () => {
-
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
-    const response = await axios.get(`${url}/api/food/list`)
+    const response = await api.get('/api/food/list');
     if (response.data.success) {
       setList(response.data.data);
-    }
-    else {
-      toast.error("Error")
-    }
-  }
-
-  // const removeFood = async (foodId) => {
-  //   const response = await axios.post(`${url}/api/food/remove`, {
-  //     id: foodId
-  //   })
-  //   await fetchList();
-  //   if (response.data.success) {
-  //     toast.success(response.data.message);
-  //   }
-  //   else {
-  //     toast.error("Error")
-  //   }
-  // }
-  const removeFood = async (foodId) => {
-    const token = localStorage.getItem('token'); // <-- Get the token from localStorage
-    const response = await axios.post(
-      `${url}/api/food/remove`,
-      { id: foodId },
-      { headers: { token } } // <-- Send the token in the headers!
-    );
-    await fetchList();
-    if (response.data.success) {
-      toast.success(response.data.message);
     } else {
       toast.error("Error");
     }
-  }
-// 
+  };
+
+  // Add this function for removing a food item
+  const removeFood = async (foodId, token) => {
+    try {
+      const response = await api.post(
+        '/api/food/remove',
+        { id: foodId },
+        { headers: { token } }
+      );
+      await fetchList();
+      if (response.data.success) {
+        toast.success(response.data.message);
+      } else {
+        toast.error("Error");
+      }
+    } catch (error) {
+      toast.error("Network error");
+    }
+  };
+
   useEffect(() => {
     fetchList();
-  }, [])
+  }, []);
+
 
   return (
     <div className='list add flex-col'>
@@ -62,7 +52,7 @@ const List = () => {
         {list.map((item, index) => {
           return (
             <div key={index} className='list-table-format'>
-              <img src={`${url}/images/` + item.image} alt="" />
+              <img src={`${apiUrl}/images/${item.image}`} alt="" />
               <p>{item.name}</p>
               <p>{item.category}</p>
               <p className='cursor' onClick={() => removeFood(item._id)}>x</p>

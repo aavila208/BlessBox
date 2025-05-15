@@ -4,7 +4,7 @@ import { StoreContext } from '../../Context/StoreContext'
 import { assets } from '../../assets/assets';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import api from '../../api'; // Centralized axios instance
 
 const PlaceOrder = () => {
     const [payment, setPayment] = useState("cod")
@@ -20,16 +20,8 @@ const PlaceOrder = () => {
         phone: ""
     })
 
-    const {token, food_list, cartItems, url, setCartItems,deliveryCharge } = useContext(StoreContext);
-
-    
+    const {token, food_list, cartItems, setCartItems, deliveryCharge } = useContext(StoreContext);
     const navigate = useNavigate();
-
-    console.log("PlaceOrder token:", token);
-    console.log("PlaceOrder cartItems:", cartItems);
-    console.log("PlaceOrder food_list:", food_list);
-    console.log("PlaceOrder food_list full:", JSON.stringify(food_list, null, 2));
-    console.log("PlaceOrder cartItems full:", JSON.stringify(cartItems, null, 2));
 
     const onChangeHandler = (event) => {
         const name = event.target.name
@@ -40,19 +32,18 @@ const PlaceOrder = () => {
     const placeOrder = async (e) => {
         e.preventDefault()
         let orderItems = [];
-            food_list.forEach((item) => {
+        food_list.forEach((item) => {
             if (cartItems?.[item._id] > 0) {
                 let itemInfo = { ...item, quantity: cartItems[item._id] };
                 orderItems.push(itemInfo);
             }
-            });
-            
+        });
         let orderData = {
             address: data,
             items: orderItems,
         }
         if (payment === "stripe") {
-            let response = await axios.post(url + "/api/order/place", orderData, { headers: { token } });
+            let response = await api.post("/api/order/place", orderData, { headers: { token } });
             if (response.data.success) {
                 const { session_url } = response.data;
                 window.location.replace(session_url);
@@ -62,7 +53,7 @@ const PlaceOrder = () => {
             }
         }
         else{
-            let response = await axios.post(url + "/api/order/placecod", orderData, { headers: { token } });
+            let response = await api.post("/api/order/placecod", orderData, { headers: { token } });
             if (response.data.success) {
                 navigate("/myorders")
                 toast.success(response.data.message)
@@ -72,7 +63,6 @@ const PlaceOrder = () => {
                 toast.error("Something Went Wrong")
             }
         }
-
     }
 
     useEffect(() => {
@@ -93,7 +83,7 @@ const PlaceOrder = () => {
 
     if (!food_list || food_list.length === 0) {
         return <div>Loading...</div>;
-      }
+    }
 
     return (
         <form onSubmit={placeOrder} className='place-order'>
