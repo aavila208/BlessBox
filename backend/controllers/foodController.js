@@ -15,7 +15,10 @@ const listFood = async (req, res) => {
 
 // add food
 const addFood = async (req, res) => {
-
+    console.log("📥 addFood called");
+    console.log("🖼️ Uploaded file:", req.file);        // ADD THIS
+    console.log("📦 Request body:", req.body);         // ADD THIS
+    
     try {
         let image_filename = `${req.file.filename}`
 
