@@ -15,7 +15,6 @@ const List = () => {
     }
   };
 
-  // Add this function for removing a food item
   const removeFood = async (foodId, token) => {
     try {
       const response = await api.post(
@@ -38,7 +37,6 @@ const List = () => {
     fetchList();
   }, []);
 
-
   return (
     <div className='list add flex-col'>
       <p>All Foods List</p>
@@ -52,16 +50,16 @@ const List = () => {
         {list.map((item, index) => {
           return (
             <div key={index} className='list-table-format'>
-              <img src={`${apiUrl}/images/${item.image}`} alt="" />
+              <img src={`${import.meta.env.VITE_API_URL}/images/${item.image}`} alt="" />
               <p>{item.name}</p>
               <p>{item.category}</p>
               <p className='cursor' onClick={() => removeFood(item._id)}>x</p>
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default List
+export default List;
