@@ -1,7 +1,7 @@
 .add{
     width: 70%;
     margin-left: max(5vw,25px);
-    margin-top: 10px;
+    margin-top: 20px;
     color: #6D6D6D;
     font-size: 16px;
 }
@@ -25,11 +25,11 @@
     margin-top: 10px;
 }
 .add-btn{
-    margin-top: 10px;
+    margin-top: 20px;
     max-width: 120px;
     border: none;
     padding: 10px;
-    background-color: black;
+    background-color: #7fbd94;
     color: white;
     cursor: pointer;
 }

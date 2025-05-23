@@ -3,10 +3,13 @@ import './List.css'
 import api from '../../../../api.js';
 import { toast } from 'react-toastify';
 
+// New Feature: Add a Popup to Add New Item
+import Add from '../Add/Add';
 
 
 const List = () => {
   const [list, setList] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   const fetchList = async () => {
     const response = await api.get('/api/food/list');
@@ -41,7 +44,23 @@ const List = () => {
 
   return (
     <div className='list add flex-col'>
-      <p>All Foods List</p>
+      <p>Pantry Items</p>
+
+      {/* 🟢 Add New Item Button */}
+      <button onClick={() => setShowModal(true)} className="open-add-modal-btn">
+        Add New Item
+      </button>
+
+      {/* 🟢 Modal (conditionally rendered) */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <Add />
+            <button className="close-btn" onClick={() => setShowModal(false)}>X</button>
+          </div>
+        </div>
+      )}
+
       <div className='list-table'>
         <div className="list-table-format title">
           <b>Image</b>

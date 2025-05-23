@@ -1,25 +1,124 @@
+.list.add.flex-col p:first-child {
+      font-size: 20px; /* Or your desired font size */
+      font-weight: 600;
+    }
+
+.open-add-modal-btn {
+    background-color: #7fbd94; /* Bootstrap-style red */
+    color: white;
+    padding: 7px;
+    border: 2px solid #7fbd94;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: right;
+
+    z-index: 999;
+  }
+  
+  .modal-content {
+    background: #fff;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    width: 60%;
+    max-width: 300px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    position: relative;
+    animation: slideIn 0.4s ease forwards;
+  }
+
+  .modal-overlay {
+    animation: fadeIn 0.3s ease forwards;
+  }
+
+    /* 🟢 Animation keyframes */
+    @keyframes slideIn {
+        from {
+        transform: translateX(100%);
+        opacity: 0;
+        }
+        to {
+        transform: translateX(0%);
+        opacity: 1;
+        }
+    }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px; right: 40px;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+
+/* TABLE STYLING */
+
+/*  Table Row (Grid Layout */
+.list-table {
+
+    width: 100%;
+    max-width: 95vw;
+    margin: 0 auto;
+    border: 1px solid #eee;
+    border-radius: 8px;
+  }
+
 .list-table-format{
     display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 0.5fr;
+    grid-template-columns: 0.25fr 0.75fr 0.5fr 0.25fr;
     align-items: center;
     gap: 10px;
     padding: 12px 15px;
-    border: 1px solid #cacaca;
-    font-size: 13px;
+    border: 1px solid #eee;
+    font-size: 14px;
+    background: #fff;
+    min-width: 650px;
+    width: 100%;
 }
+
+/* "All Foods List" Title Row */
 .list-table-format.title{
     background-color: #f9f9f9;
+    font-weight: bold;
 }
-.list-table-format img{
-    width: 50px;
-}
-@media(max-width:600px){
 
-    .list-table-format{
-        grid-template-columns: 1fr 3fr 1fr;
-        gap: 15px;
-    }
-    .list-table-format.title{
-        display: none;
-    }
+.list-table-format img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
 }
+
+.cursor {
+    color: #d9534f;           /* Bootstrap-style red */
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    user-select: none;
+    padding-left: 16px ;
+  }
+
+
+@media (max-width: 768px) {
+    .list-table {
+      overflow-x: auto;
+      max-width: 100vw;
+    }
+  
+    .list-table-format {
+      min-width: 650px;
+      width: fit-content;
+    }
+  }
