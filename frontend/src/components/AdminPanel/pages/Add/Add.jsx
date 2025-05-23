@@ -100,10 +100,6 @@ const Add = () => {
                             <option value="Noodles">Noodles</option>
                         </select>
                     </div>
-                    <div className='add-price flex-col'>
-                        <p>Product Price</p>
-                        <input type="Number" name='price' onChange={onChangeHandler} value={data.price} placeholder='25' />
-                    </div>
                 </div>
                 <button type='submit' className='add-btn' >ADD</button>
             </form>

@@ -7,13 +7,13 @@ const Sidebar = () => {
   return (
     <div className='sidebar'>
       <div className="sidebar-options">
-        <NavLink to='/admin-panel/add' className="sidebar-option">
+        {/* <NavLink to='/admin-panel/add' className="sidebar-option">
             <img src={assets.add_icon} alt="" />
             <p>Add Items</p>
-        </NavLink>
+        </NavLink> */}
         <NavLink to='/admin-panel/list' className="sidebar-option">
             <img src={assets.order_icon} alt="" />
-            <p>List Items</p>
+            <p>Pantry Items</p>
         </NavLink>
         <NavLink to='/admin-panel/orders' className="sidebar-option">
             <img src={assets.order_icon} alt="" />

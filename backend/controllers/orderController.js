@@ -92,3 +92,14 @@ const verifyOrder = async (req, res) => {
 }
 
 export { placeOrder, listOrders, userOrders, updateStatus, verifyOrder, placeOrderCod }
+
+// [Second]
+export const updateComment = async (req, res) => {
+    const { id, comment } = req.body;
+    try {
+      await Order.findByIdAndUpdate(id, { comment });
+      res.send({ success: true, message: "Comment updated" });
+    } catch (error) {
+      res.status(500).send({ success: false, message: "Failed to update comment" });
+    }
+  }

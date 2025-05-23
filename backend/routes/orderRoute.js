@@ -1,7 +1,7 @@
 import express from 'express';
 import authMiddleware from '../middleware/auth.js';
 import isAdmin from '../middleware/isAdmin.js'; // UPDATE: Importing isAdmin middleware
-import { listOrders, placeOrder,updateStatus,userOrders, verifyOrder, placeOrderCod } from '../controllers/orderController.js';
+import { listOrders, placeOrder,updateStatus,userOrders, verifyOrder, placeOrderCod, updateComment } from '../controllers/orderController.js'; // [Third]
 
 const orderRouter = express.Router();
 
@@ -18,6 +18,9 @@ orderRouter.post("/status",authMiddleware, isAdmin, updateStatus); // UPDATE: Up
 
 // Public route (payment verification)
 orderRouter.post("/verify",verifyOrder);
+
+// Admin-only route (comment)
+orderRouter.post("/update-comment", authMiddleware, isAdmin, updateComment);
 
 
 export default orderRouter;
