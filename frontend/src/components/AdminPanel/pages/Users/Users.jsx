@@ -9,7 +9,7 @@ const Users = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await api.get('/user/list');
+      const res = await api.get('/api/user/list');
       if (res.data.success) {
         setUsers(res.data.data);
       } else {
