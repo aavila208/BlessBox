@@ -67,14 +67,14 @@ const registerUser = async (req,res) => {
 
 // USER TABLE 
 const listUsers = async (req, res) => {
+    console.log("👥 [listUsers] endpoint hit by user:", req.user); // ⬅️ log the incoming request
     try {
-      const users = await userModel.find({}, '-password'); // exclude password
+      const users = await userModel.find({}, '-password');
       res.json({ success: true, data: users });
     } catch (error) {
       console.error("❌ [listUsers] Error:", error);
       res.status(500).json({ success: false, message: "Failed to fetch users" });
     }
   };
-  
 
 export {loginUser, registerUser, listUsers}
