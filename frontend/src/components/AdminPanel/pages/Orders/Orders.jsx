@@ -47,20 +47,27 @@ const Order = () => {
   };
 
   const saveComment = async (id) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token'); // ✅ ensure you get token
+  
+    console.log("🛠️ Submitting comment for order ID:", id, "with:", comments[id]);
+    console.log("📤 Token used:", token);
+  
     try {
       await api.post('/api/order/update-comment', {
         id,
         comment: comments[id] || ""
       }, {
-        headers: { token }
+        headers: { token } // ✅ ensure this is passed
       });
+  
       toast.success("Comment saved");
       fetchAllOrders();
     } catch (error) {
+      console.error("❌ saveComment failed:", error.response?.data || error.message);
       toast.error("Failed to save comment");
     }
   };
+  
 
   useEffect(() => {
     fetchAllOrders();

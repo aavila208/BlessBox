@@ -12,6 +12,13 @@ import { fileURLToPath } from "url";
 
 const app = express();
 
+// ✅ GLOBAL REQUEST LOGGER (Add This)
+app.use((req, res, next) => {
+  console.log(`📥 ${req.method} ${req.originalUrl}`);
+  next();
+});
+
+
 // --- CORS MIDDLEWARE (put this BEFORE routes!) ---
 app.use(cors({
   origin: [

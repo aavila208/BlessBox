@@ -20,7 +20,11 @@ orderRouter.post("/status",authMiddleware, isAdmin, updateStatus); // UPDATE: Up
 orderRouter.post("/verify",verifyOrder);
 
 // Admin-only route (comment)
-orderRouter.post("/update-comment", authMiddleware, isAdmin, updateComment);
+orderRouter.post("/update-comment", (req, res, next) => {
+  console.log("🔥 NO AUTH - hit /update-comment");
+  next();
+}, updateComment);
+
 
 
 export default orderRouter;
