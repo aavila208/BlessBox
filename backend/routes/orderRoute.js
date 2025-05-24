@@ -1,7 +1,7 @@
 import express from 'express';
 import authMiddleware from '../middleware/auth.js';
 import isAdmin from '../middleware/isAdmin.js'; // UPDATE: Importing isAdmin middleware
-import { listOrders, placeOrder,updateStatus,userOrders, verifyOrder, placeOrderCod, updateComment } from '../controllers/orderController.js'; // [Third]
+import { listOrders, placeOrder,updateStatus,userOrders, verifyOrder, placeOrderCod, updateComment, deleteOrder, } from '../controllers/orderController.js'; // [Third]
 
 const orderRouter = express.Router();
 
@@ -25,6 +25,8 @@ orderRouter.post("/update-comment", (req, res, next) => {
   next();
 }, updateComment);
 
+// Admin only route (delete order)
+orderRouter.delete("/delete/:id", authMiddleware, isAdmin, deleteOrder);
 
 
 export default orderRouter;

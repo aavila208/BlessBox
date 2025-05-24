@@ -1,34 +1,48 @@
-.order-item{
+.order-item {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: start;
     border: 1px solid #7fbd94;
     background-color: #ffffff;
-    padding: 20px;
-    margin: 30px auto;   
-    width: 90%;          
-    max-width: 800px;    
+    padding: 16px 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 700px;
     font-size: 14px;
     color: #505050;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-.order-item-food,.order-item-name{
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+.order-item-food{
     font-weight: 600;
+  font-size: 14px;
+  color: #505050;
+  text-align: left;
+  white-space: wrap;
 }
+
+.order-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  
 .order-item-name{
-    margin-top: 30px;
-    margin-bottom: 5px;
+  margin: 6px 0;
+  font-weight: 600;
 }
 .order-item-address{
     margin-bottom: 10px;
 }
 .order-item select{
-    background-color: #e5f4ea;
-    border: 1px solid #7fbd94;
-    width: max(10vw,120px);
-    padding: 10px;
-    outline:none;
+  background-color: #e5f4ea;
+  border: 1px solid #7fbd94;
+  padding: 10px;
+  width: 160px;
 }
 
 .order-comment-box {
@@ -45,6 +59,37 @@
     margin-top: 6px;
     padding: 6px 12px;
     background-color: #7fbd94;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+
+/* NAVIGATION FEATURE */
+  .map-modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    max-width: 600px;
+    width: 90%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00000066;
+  }
+  
+  .order-map-btn {
+    margin-top: 6px;
+    padding: 6px 12px;
+    background-color: #4c7ef3;
     color: white;
     border: none;
     border-radius: 4px;
