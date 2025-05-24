@@ -54,13 +54,13 @@ app.get("/", (req, res) => {
 });
 
 // --- SERVE REACT FRONTEND (build) ---
-// Serve static files from React app build folder
-app.use(express.static(path.join(__dirname, 'build')));
+// Serve Vite frontend build from ../frontend/dist
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
 
-// Catch-all: send back React's index.html for any route not handled above
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
 });
+
 
 // --- START SERVER ---
 app.listen(port, () => console.log(`Server started on http://localhost:${port}`));
