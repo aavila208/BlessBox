@@ -12,13 +12,15 @@ const Sidebar = () => {
             <p>Add Items</p>
         </NavLink> */}
         <NavLink to='/admin-panel/list' className="sidebar-option">
-            <img src={assets.order_icon} alt="" />
             <p>Pantry Items</p>
         </NavLink>
         <NavLink to='/admin-panel/orders' className="sidebar-option">
-            <img src={assets.order_icon} alt="" />
             <p>Orders</p>
         </NavLink>
+        <NavLink to='/admin-panel/users' className="sidebar-option">
+          <p>Users</p>
+        </NavLink>
+
       </div>
     </div>
   )

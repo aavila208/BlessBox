@@ -65,4 +65,16 @@ const registerUser = async (req,res) => {
     }
 }
 
-export {loginUser, registerUser}
+// USER TABLE 
+const listUsers = async (req, res) => {
+    try {
+      const users = await userModel.find({}, '-password'); // exclude password
+      res.json({ success: true, data: users });
+    } catch (error) {
+      console.error("❌ [listUsers] Error:", error);
+      res.status(500).json({ success: false, message: "Failed to fetch users" });
+    }
+  };
+  
+
+export {loginUser, registerUser, listUsers}
