@@ -41,7 +41,11 @@ const MyOrders = () => {
             </p>
             <p>Items: {order.items.length}</p>
             <p><span>&#x25cf;</span> <b>{order.status}</b></p>
-            <button onClick={fetchOrders}>Track Order</button>
+            
+            {order.comment && (
+              <p className="order-comment"><b></b> {order.comment}</p>
+            )}
+
           </div>
         ))}
       </div>

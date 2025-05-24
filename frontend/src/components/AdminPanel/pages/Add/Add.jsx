@@ -89,16 +89,16 @@ const Add = () => {
                 <div className='add-category-price'>
                     <div className='add-category flex-col'>
                         <p>Product category</p>
-                        <select name='category' onChange={onChangeHandler} >
-                            <option value="Salad">Salad</option>
-                            <option value="Rolls">Rolls</option>
-                            <option value="Deserts">Deserts</option>
-                            <option value="Sandwich">Sandwich</option>
-                            <option value="Cake">Cake</option>
-                            <option value="Pure Veg">Pure Veg</option>
+                        <select name='category' onChange={onChangeHandler} value={data.category}>
+                            <option value="Canned Goods">Canned Goods</option>
+                            <option value="Grains">Grains</option>
+                            <option value="Baking Items">Baking Items</option>
+                            <option value="Snacks">Snacks</option>
+                            <option value="Beverages">Beverages</option>
                             <option value="Pasta">Pasta</option>
-                            <option value="Noodles">Noodles</option>
+                            <option value="Protein Food">Protein Food</option>
                         </select>
+
                     </div>
                 </div>
                 <button type='submit' className='add-btn' >ADD</button>

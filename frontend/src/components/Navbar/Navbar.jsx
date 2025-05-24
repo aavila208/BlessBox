@@ -24,9 +24,19 @@ const Navbar = ({ setShowLogin }) => {
     <div className='navbar'>
       <Link to='/'><img className='logo' src={assets.logo} alt="" /></Link>
       <ul className="navbar-menu">
-        <Link to="/" onClick={() => setMenu("home")} className={`${menu === "home" ? "active" : ""}`}>home</Link>
-        <a href='#explore-menu' onClick={() => setMenu("menu")} className={`${menu === "menu" ? "active" : ""}`}>menu</a>
-        <a href='#footer' onClick={() => setMenu("contact")} className={`${menu === "contact" ? "active" : ""}`}>contact us</a>
+      <span
+        onClick={() => {
+          setMenu("home");
+          navigate("/");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+        className={`navbar-link ${menu === "home" ? "active" : ""}`}
+      >
+        home
+      </span>
+
+
+
         {/* UPDATE: Conditionally Render the Admin Panel Link [1]*/}
         {role === "admin" && (
           <Link
