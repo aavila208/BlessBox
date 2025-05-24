@@ -91,7 +91,6 @@ const verifyOrder = async (req, res) => {
 
 }
 
-// [Second]
 const updateComment = async (req, res) => {
     const { id, comment } = req.body;
   
@@ -127,7 +126,17 @@ const updateComment = async (req, res) => {
     }
   };    
 
-// ✅ export everything together
+// Delete Order
+const deleteOrder = async (req, res) => {
+    try {
+      const result = await orderModel.findByIdAndDelete(req.params.id);
+      if (!result) return res.status(404).json({ success: false, message: "Order not found" });
+      res.json({ success: true, message: "Order deleted" });
+    } catch (error) {
+      res.status(500).json({ success: false, message: "Delete failed", error: error.message });
+    }
+  };  
+
 export {
   placeOrder,
   placeOrderCod,
@@ -136,4 +145,5 @@ export {
   updateStatus,
   verifyOrder,
   updateComment,
+  deleteOrder,
 };
