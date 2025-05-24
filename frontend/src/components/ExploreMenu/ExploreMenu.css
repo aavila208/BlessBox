@@ -26,6 +26,9 @@
 .explore-menu-list-item img{
     width: 7.5vw;
     min-width: 80px;
+    height: 7.5vw; /* ✅ Add this line */
+    min-height: 80px; /* ✅ Optional: keep consistent sizing */
+    object-fit: cover; /* ✅ Ensures images scale/crop nicely */
     cursor: pointer;
     border-radius: 50%;
     transition: 0.2s;

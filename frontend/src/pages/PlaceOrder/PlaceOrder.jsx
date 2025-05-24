@@ -107,14 +107,14 @@ const PlaceOrder = () => {
             </div>
             <div className="place-order-right">
                 <div className="payment">
-                    <h2>Payment Method</h2>
+                    <h2>Delivery Method</h2>
                     <div onClick={() => setPayment("cod")} className="payment-option">
                         <img src={payment === "cod" ? assets.checked : assets.un_checked} alt="" />
-                        <p>COD ( Cash on delivery )</p>
+                        <p>Delivery</p>
                     </div>
                     <div onClick={() => setPayment("stripe")} className="payment-option">
                         <img src={payment === "stripe" ? assets.checked : assets.un_checked} alt="" />
-                        <p>Stripe ( Credit / Debit )</p>
+                        <p>Pick Up</p>
                     </div>
                 </div>
                 <button className='place-order-submit' type='submit'>{payment==="cod"?"Place Order":"Proceed To Payment"}</button>
