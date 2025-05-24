@@ -26,7 +26,15 @@ orderRouter.post("/update-comment", (req, res, next) => {
 }, updateComment);
 
 // Admin only route (delete order)
-orderRouter.delete("/delete/:id", authMiddleware, isAdmin, deleteOrder);
-
+orderRouter.delete(
+  "/delete/:id",
+  (req, res, next) => {
+    console.log("🔥 DELETE route hit for ID:", req.params.id);
+    next();
+  },
+  authMiddleware,
+  isAdmin,
+  deleteOrder
+);
 
 export default orderRouter;
