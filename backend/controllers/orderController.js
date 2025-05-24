@@ -91,16 +91,49 @@ const verifyOrder = async (req, res) => {
 
 }
 
-export { placeOrder, listOrders, userOrders, updateStatus, verifyOrder, placeOrderCod , updateComment };
-
 // [Second]
-export const updateComment = async (req, res) => {
+const updateComment = async (req, res) => {
     const { id, comment } = req.body;
-    try {
-      await orderModel.findByIdAndUpdate(id, { comment });
-      res.send({ success: true, message: "Comment updated" });
-    } catch (error) {
-      console.error("❌ Error updating comment:", error); // log error
-      res.status(500).send({ success: false, message: "Failed to update comment" });
+  
+    console.log("💬 [updateComment] Payload received:", { id, comment });
+  
+    // Validate input
+    if (!id || typeof comment !== "string") {
+      console.error("❗ Invalid payload", { id, comment });
+      return res.status(400).json({ success: false, message: "Invalid input" });
     }
-  }
+  
+    try {
+      console.log("🔎 Looking for order:", id);
+      const result = await orderModel.findByIdAndUpdate(
+        id,
+        { $set: { comment } }, // USE $set explicitly
+        { new: true, runValidators: true }
+      );
+  
+      console.log("📬 [updateComment] DB update result:", result);
+  
+      if (!result) {
+        console.warn("⚠️ Order not found:", id);
+        return res.status(404).json({ success: false, message: "Order not found or update failed" });
+      }
+  
+      console.log("✅ [updateComment] Success for order:", id);
+      res.json({ success: true, message: "Comment updated", data: result });
+  
+    } catch (error) {
+      console.error("❌ [updateComment] Server error:", error);
+      res.status(500).json({ success: false, message: "Failed to update comment", error: error.message });
+    }
+  };    
+
+// ✅ export everything together
+export {
+  placeOrder,
+  placeOrderCod,
+  listOrders,
+  userOrders,
+  updateStatus,
+  verifyOrder,
+  updateComment,
+};
