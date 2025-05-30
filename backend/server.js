@@ -48,6 +48,7 @@ app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 app.use("/api/admin", adminRouter);
 
+
 // --- TEST ROUTE ---
 app.get("/", (req, res) => {
   res.send("API Working");
@@ -60,7 +61,6 @@ app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
 });
-
 
 // --- START SERVER ---
 app.listen(port, () => console.log(`Server started on http://localhost:${port}`));
