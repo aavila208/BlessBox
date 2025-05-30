@@ -22,7 +22,7 @@
 
 .users-table-row {
   display: grid;
-  grid-template-columns: 0.2fr 1.2fr 2fr 0.8fr 1fr;
+  grid-template-columns: 0.2fr 1.2fr 2fr 0.8fr 1fr 1fr;
   gap: 10px;
   padding: 12px 16px;
   border-bottom: 1px solid #eee;
@@ -37,6 +37,18 @@
 
 .users-table-row:hover {
   background-color: #f5f5f5;
+}
+
+.users-table-row button {
+  padding: 6px 10px;
+  background-color: #ff4d4f;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px;
+  transition: background-color 0.2s ease;
 }
 
 @media (max-width: 768px) {

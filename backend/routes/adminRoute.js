@@ -4,6 +4,7 @@ import authMiddleware from '../middleware/auth.js';
 import isAdmin from '../middleware/isAdmin.js';
 import { getUsers, deleteUser } from '../controllers/adminController.js';
 
+
 const adminRouter = express.Router();
 
 adminRouter.get("/users", authMiddleware, isAdmin, getUsers);
