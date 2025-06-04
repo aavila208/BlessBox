@@ -60,7 +60,7 @@ const List = () => {
 
   return (
     <div className="list-request-container">
-      <h2 className="list-request-title">All Hot-Item Requests</h2>
+      <h2 className="list-request-title">Current Pantry Requests</h2>
 
       {requests.length === 0 ? (
         <p className="list-request-none">No active requests found.</p>

@@ -30,7 +30,7 @@ const Request = () => {
   if (loading) {
     return (
       <div className="request-page__loading">
-        <p>Loading hot-item requests…</p>
+        <p>Loading requests…</p>
       </div>
     );
   }
@@ -45,7 +45,8 @@ const Request = () => {
 
   return (
     <div className="request-page">
-      <h1 className="request-page__title">Current Hot-Item Requests</h1>
+      <h1 className="request-page__title">Current Pantry Requests</h1>
+      <h2 className="list-request-subtitle"> We gratefully welcome any donation you can give, and if you’d like to help even more, these specific items are what our pantry needs most right now.</h2>
 
       {requests.length === 0 ? (
         <p className="request-page__none">

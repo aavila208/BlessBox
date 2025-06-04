@@ -39,7 +39,7 @@ const Add = () => {
 
   return (
     <div className="add-request-container">
-      <h2 className="add-request-title">Create New Hot-Item Request</h2>
+      <h2 className="add-request-title">Create New Pantry Request</h2>
       <form className="add-request-form" onSubmit={handleSubmit}>
         <div className="add-request-field">
           <label htmlFor="title" className="add-request-label">

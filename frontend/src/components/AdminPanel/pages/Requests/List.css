@@ -73,7 +73,7 @@
   }
   
   .create-button {
-    background-color: #007bff;
+    background-color: #7fbd94;
     color: #fff;
     padding: 0.75rem 1.5rem;
     border: none;
@@ -85,7 +85,7 @@
   }
   
   .create-button:hover {
-    background-color: #0069d9;
+    background-color: #7fbd94;
   }
   
   .list-request-loading,
