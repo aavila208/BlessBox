@@ -17,6 +17,9 @@ import Verify from './pages/Verify/Verify'
 import AdminRoute from './components/AdminRoute/AdminRoute'; 
 import AdminPanel from './components/AdminPanel/AdminApp'; 
 
+// UPDATE: Donor Panel
+import Requests from './pages/Requests/Request';
+
 const App = () => {
 
   const [showLogin,setShowLogin] = useState(false);
@@ -33,6 +36,7 @@ const App = () => {
           <Route path='/order' element={<PlaceOrder />}/>
           <Route path='/myorders' element={<MyOrders />}/>
           <Route path='/verify' element={<Verify />}/>
+          <Route path="/requests" element={<Requests />} />
           <Route path='/admin-panel/*' element={
             <AdminRoute>
               <AdminPanel />

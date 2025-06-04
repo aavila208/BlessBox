@@ -8,6 +8,7 @@ import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 import adminRouter from "./routes/adminRoute.js";
 import path from "path";
+import requestRouter from "./routes/requestRoute.js";
 import { fileURLToPath } from "url";
 
 const app = express();
@@ -48,6 +49,8 @@ app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 app.use("/api/admin", adminRouter);
 
+// ─── Mount “requests” all in one place ───
+app.use("/api/requests", requestRouter);
 
 // --- TEST ROUTE ---
 app.get("/", (req, res) => {

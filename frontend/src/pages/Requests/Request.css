@@ -1,0 +1,77 @@
+/* Container for the entire page */
+.request-page {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Page title */
+  .request-page__title {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  /* “No items” message */
+  .request-page__none {
+    font-size: 1.125rem;
+    color: #555;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  /* Loading and error states */
+  .request-page__loading,
+  .request-page__error {
+    padding: 2rem;
+    text-align: center;
+    font-size: 1.125rem;
+  }
+  
+  .request-page__error {
+    color: red;
+  }
+  
+  /* Grid layout for cards */
+  .request-page__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  /* Individual card styling */
+  .request-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* Card title */
+  .request-card__title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    color: #222;
+  }
+  
+  /* Card description */
+  .request-card__desc {
+    margin: 0 0 0.75rem 0;
+    flex-grow: 1;
+    color: #444;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  
+  /* Card date text */
+  .request-card__date {
+    color: #666;
+    font-size: 0.875rem;
+    text-align: right;
+  }
+  

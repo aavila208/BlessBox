@@ -35,7 +35,13 @@ const Navbar = ({ setShowLogin }) => {
         home
       </span>
 
-
+      <Link
+        to="/requests"
+        onClick={() => { setMenu("requests"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+        className={`navbar-link ${menu === "requests" ? "active" : ""}`}
+      >
+        donors
+      </Link>
 
         {/* UPDATE: Conditionally Render the Admin Panel Link [1]*/}
         {role === "admin" && (

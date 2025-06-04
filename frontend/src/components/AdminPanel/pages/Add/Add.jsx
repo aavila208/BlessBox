@@ -94,9 +94,9 @@ const Add = () => {
                             <option value="Grains">Grains</option>
                             <option value="Baking Items">Baking Items</option>
                             <option value="Snacks">Snacks</option>
-                            <option value="Beverages">Beverages</option>
+                            <option value="Sauces">Sauces</option>
                             <option value="Pasta">Pasta</option>
-                            <option value="Protein Food">Protein Food</option>
+                            <option value="Protein">Protein</option>
                         </select>
 
                     </div>
