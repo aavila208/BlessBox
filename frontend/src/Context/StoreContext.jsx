@@ -69,6 +69,8 @@ const StoreContextProvider = (props) => {
         loadData();
     }, []);
     
+    const url = import.meta.env.VITE_API_URL;
+
     const contextValue = {
         food_list,
         menu_list,
@@ -78,7 +80,8 @@ const StoreContextProvider = (props) => {
         token,
         setToken,
         loadCartData,
-        setCartItems
+        setCartItems,
+        url,
     };
 
     return (
