@@ -4,7 +4,7 @@ import { assets } from '../../../../assets/assets';
 import api from '../../../../api'; // centralized axios instance
 import { toast } from 'react-toastify';
 
-const Add = () => {
+const Add = ({ onAdded }) => {
   
   const [image, setImage] = useState(false);
     const [data, setData] = useState({
@@ -54,6 +54,11 @@ const Add = () => {
                     category: data.category
                 })
                 setImage(false);
+
+                if (typeof onAdded === 'function') {
+                    onAdded();
+                  }
+
             } else {
                 toast.error(response.data.message)
             }
@@ -92,7 +97,7 @@ const Add = () => {
                         <select name='category' onChange={onChangeHandler} value={data.category}>
                             <option value="Canned Goods">Canned Goods</option>
                             <option value="Grains">Grains</option>
-                            <option value="Baking Items">Baking Items</option>
+                            <option value="Baking Items">Fruits</option>
                             <option value="Snacks">Snacks</option>
                             <option value="Sauces">Sauces</option>
                             <option value="Pasta">Pasta</option>

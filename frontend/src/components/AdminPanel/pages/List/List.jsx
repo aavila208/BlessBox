@@ -11,12 +11,25 @@ const List = () => {
   const [list, setList] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
+  // ADDEDED
+  // const fetchList = async () => {
+  //   const response = await api.get('/api/food/list');
+  //   if (response.data.success) {
+  //     setList(response.data.data);
+  //   } else {
+  //     toast.error("Error");
+  //   }
+  // };
   const fetchList = async () => {
-    const response = await api.get('/api/food/list');
-    if (response.data.success) {
-      setList(response.data.data);
-    } else {
-      toast.error("Error");
+    try {
+      const response = await api.get('/api/food/list');
+      if (response.data.success) {
+        setList(response.data.data);
+      } else {
+        toast.error('Error loading pantry items');
+      }
+    } catch (err) {
+      toast.error('Network error while fetching list');
     }
   };
 
@@ -30,6 +43,7 @@ const List = () => {
       await fetchList();
       if (response.data.success) {
         toast.success(response.data.message);
+        fetchList(); // ADDEDED
       } else {
         toast.error("Error");
       }
@@ -46,16 +60,21 @@ const List = () => {
     <div className='list add flex-col'>
       <p>Pantry Items</p>
 
-      {/* 🟢 Add New Item Button */}
       <button onClick={() => setShowModal(true)} className="open-add-modal-btn">
         Add New Item
       </button>
 
-      {/* 🟢 Modal (conditionally rendered) */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <Add />
+            {/* ADDEDED <Add /> */}
+            <Add
+              onAdded={() => {
+                setShowModal(false);
+                fetchList();
+              }}
+              onClose={() => setShowModal(false)}
+            />
             <button className="close-btn" onClick={() => setShowModal(false)}>X</button>
           </div>
         </div>
