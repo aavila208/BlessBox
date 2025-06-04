@@ -9,6 +9,9 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Users from './pages/Users/Users';
 
+import AddRequest from './pages/Requests/Add'
+import ListRequests from './pages/Requests/List';
+
 
 
 const App = () => {
@@ -24,6 +27,8 @@ const App = () => {
           <Route path="/list" element={<List />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="users" element={<Users />} />
+          <Route path="/requests/add" element={<AddRequest />} />
+          <Route path="/requests/list" element={<ListRequests />} />
         </Routes>
       </div>
     </div>

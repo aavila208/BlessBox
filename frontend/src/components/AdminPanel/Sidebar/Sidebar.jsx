@@ -20,6 +20,9 @@ const Sidebar = () => {
         <NavLink to='/admin-panel/users' className="sidebar-option">
           <p>Users</p>
         </NavLink>
+        <NavLink to='/admin-panel/requests/list' className="sidebar-option">
+         <p>Requests</p>
+       </NavLink>
 
       </div>
     </div>

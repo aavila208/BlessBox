@@ -1,4 +1,4 @@
-import Request from '../models/Request.js';
+import Request from '../models/requestsModel.js';
 
 // @desc   Admin: create a new “hot-item” request
 // @route  POST /api/admin/requests

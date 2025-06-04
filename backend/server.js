@@ -8,7 +8,7 @@ import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 import adminRouter from "./routes/adminRoute.js";
 import path from "path";
-import requestRouter from "./routes/requestRoute.js";
+import requestRouter from "./routes/requestsRoute.js";
 import { fileURLToPath } from "url";
 
 const app = express();

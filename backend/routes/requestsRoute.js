@@ -6,7 +6,7 @@ import {
   createRequest,
   getAllRequests,
   deactivateRequest,
-} from '../controllers/requestController.js';
+} from '../controllers/requestsController.js';
 
 const requestRouter = express.Router();
 
