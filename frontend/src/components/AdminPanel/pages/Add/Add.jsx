@@ -11,7 +11,7 @@ const Add = ({ onAdded }) => {
         name: "",
         description: "",
         price: "",
-        category: "Salad"
+        category: "Canned Goods"
     });
 
     const onSubmitHandler = async (event) => {
@@ -97,7 +97,7 @@ const Add = ({ onAdded }) => {
                         <select name='category' onChange={onChangeHandler} value={data.category}>
                             <option value="Canned Goods">Canned Goods</option>
                             <option value="Grains">Grains</option>
-                            <option value="Baking Items">Fruits</option>
+                            <option value="Produce">Produce</option>
                             <option value="Snacks">Snacks</option>
                             <option value="Sauces">Sauces</option>
                             <option value="Pasta">Pasta</option>

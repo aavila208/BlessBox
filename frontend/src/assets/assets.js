@@ -95,7 +95,7 @@ export const menu_list = [
         menu_image: menu_2
     },
     {
-        menu_name: "Baking Items",
+        menu_name: "Produce",
         menu_image: menu_3
     },
     {
