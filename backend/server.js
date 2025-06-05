@@ -27,9 +27,10 @@ app.use((req, res, next) => {
 // --- CORS MIDDLEWARE (put this BEFORE routes!) ---
 app.use(cors({
   origin: [
-    'https://bless-box.vercel.app', // <-- your deployed frontend!
-    'https://bless-b1h8hxynn-aavila208s-projects.vercel.app',
-    'http://localhost:5173'         // <-- local dev frontend
+      "https://bless-box.vercel.app",                            // your original prod URL
+      "https://bless-b1h8hxynn-aavila208s-projects.vercel.app",   // first preview you used
+      "https://bless-r7dippkfj-aavila208s-projects.vercel.app",   // this new preview URL
+      "http://localhost:5173"                                     // local dev
   ],
   credentials: true
 }));
