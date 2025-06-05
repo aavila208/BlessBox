@@ -49,7 +49,7 @@ connectDB();
 // --- API ROUTES ---
 app.use("/api/user", userRouter);
 app.use("/api/food", foodRouter);
-app.use("/images", express.static('uploads')); // Serve uploaded images
+app.use("/images", express.static(path.join(__dirname, "uploads"))); // Serve uploaded images
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 app.use("/api/admin", adminRouter);
