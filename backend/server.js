@@ -28,6 +28,7 @@ app.use((req, res, next) => {
 app.use(cors({
   origin: [
     'https://bless-box.vercel.app', // <-- your deployed frontend!
+    'https://bless-b1h8hxynn-aavila208s-projects.vercel.app',
     'http://localhost:5173'         // <-- local dev frontend
   ],
   credentials: true
