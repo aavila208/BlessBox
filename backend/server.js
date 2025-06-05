@@ -13,6 +13,10 @@ import { fileURLToPath } from "url";
 
 const app = express();
 
+console.log(">>> Running in", process.env.NODE_ENV || "no NODE_ENV set");
+console.log(">>> PORT:", process.env.PORT);
+console.log(">>> MONGODB_URI:", process.env.MONGODB_URI);
+
 // ✅ GLOBAL REQUEST LOGGER (Add This)
 app.use((req, res, next) => {
   console.log(`📥 ${req.method} ${req.originalUrl}`);
